@@ -79,3 +79,60 @@ Bài thực hành thuộc chương trình đào tạo **CodeGym**, tập trung v
 ## 7. Kết quả mong đợi
 
 Hoàn thành Menu điều hướng đúng chuẩn HTML Semantic, đồng thời vận dụng quy trình Git Branching để phát triển và tích hợp tính năng mới mà không làm ảnh hưởng đến mã nguồn ổn định trên nhánh `main`.
+
+## Giải thích và bảo vệ mã nguồn
+
+### 1. Tại sao sử dụng `<ul>` thay vì `<ol>` để xây dựng Navigation Menu?
+
+Trong HTML, `<ul>` và `<ol>` đều được sử dụng để tạo danh sách nhưng có ý nghĩa ngữ nghĩa khác nhau:
+
+| Tiêu chí | `<ul>` | `<ol>` |
+|---|---|---|
+| Tên đầy đủ | Unordered List | Ordered List |
+| Ý nghĩa | Danh sách không có thứ tự bắt buộc | Danh sách có thứ tự mang ý nghĩa |
+| Hiển thị mặc định | Dấu đầu dòng | Số hoặc ký tự thứ tự |
+| Trường hợp sử dụng | Menu điều hướng, danh mục sản phẩm | Các bước hướng dẫn, bảng xếp hạng |
+
+**Lý do lựa chọn `<ul>`:**
+
+- Các mục menu như Trang chủ, Sản phẩm, Dịch vụ, Giới thiệu và Liên hệ không cần tuân theo trình tự bắt buộc.
+- Sử dụng `<ul>` kết hợp `<li>` giúp thể hiện đúng ngữ nghĩa HTML.
+- Công nghệ hỗ trợ như Screen Reader có thể nhận diện cấu trúc danh sách và số lượng phần tử, tùy theo trình duyệt và công nghệ hỗ trợ.
+- Thẻ `<nav>` giúp xác định khu vực điều hướng của trang web.
+
+**Kết luận:** Sử dụng cấu trúc `<nav>` → `<ul>` → `<li>` → `<a>` là lựa chọn phù hợp cho menu điều hướng của dự án.
+
+### 2. Điều gì xảy ra nếu checkout sang `main` khi chưa commit thay đổi trên `feature/nav-menu`?
+
+Khi đang làm việc trên nhánh `feature/nav-menu`, nếu chỉnh sửa file nhưng chưa commit mà chuyển sang nhánh `main`, Git có thể xử lý theo hai trường hợp:
+
+**Trường hợp 1: Không xảy ra xung đột**
+
+- Git cho phép chuyển sang nhánh `main`.
+- Các thay đổi chưa commit được giữ lại trong Working Directory.
+- Những thay đổi này có thể xuất hiện khi đang ở nhánh `main`, dẫn đến nguy cơ commit nhầm nhánh.
+
+**Trường hợp 2: Có nguy cơ ghi đè thay đổi**
+
+- Git từ chối chuyển nhánh.
+- Terminal có thể hiển thị thông báo `Your local changes to the following files would be overwritten by checkout`.
+- Git yêu cầu xử lý các thay đổi trước khi chuyển nhánh để tránh mất dữ liệu.
+
+**Giải pháp an toàn:**
+
+- `git status`: Kiểm tra trạng thái Working Directory.
+- `git add` và `git commit`: Lưu những thay đổi đã hoàn thành.
+- `git stash`: Tạm cất các thay đổi chưa muốn commit.
+- `git switch main`: Chuyển về nhánh chính sau khi đảm bảo trạng thái phù hợp.
+
+**Kết luận:** Trước khi chuyển nhánh, cần kiểm tra trạng thái Git và chủ động commit hoặc stash thay đổi để tránh xung đột, mất dữ liệu hoặc commit nhầm nhánh.
+
+### 3. Tại sao cần phát triển tính năng trên nhánh riêng thay vì trực tiếp trên `main`?
+
+- **Bảo vệ mã nguồn:** Hạn chế ảnh hưởng đến phiên bản đang hoạt động ổn định.
+- **Phát triển độc lập:** Cho phép thử nghiệm và chỉnh sửa tính năng mà không trực tiếp thay đổi `main`.
+- **Code Review:** Dễ dàng kiểm tra các thay đổi trước khi hợp nhất.
+- **Quản lý lịch sử:** Theo dõi các commit và quá trình phát triển từng tính năng.
+- **Hỗ trợ làm việc nhóm:** Nhiều lập trình viên có thể phát triển các tính năng trên các nhánh riêng biệt.
+
+**Kết luận:** Git Branching là một phương pháp quản lý mã nguồn quan trọng, giúp quy trình phát triển phần mềm an toàn, dễ kiểm soát và chuyên nghiệp hơn.
